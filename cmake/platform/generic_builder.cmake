@@ -30,8 +30,6 @@ set(PROJECT_LIBRARIES_LIST)
 set(PROJECT_DIRECTORIES_LIST)
 
 # [LIBRARIES]
-include(cmake/libraries/lmdb.cmake)
-include(cmake/libraries/lmdbxx.cmake)
 include(cmake/libraries/curl.cmake)
 include(cmake/libraries/fmt.cmake)
 include(cmake/libraries/spdlog.cmake)
