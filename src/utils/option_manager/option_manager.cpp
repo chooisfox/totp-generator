@@ -149,8 +149,19 @@ void OptionManager::debug_log() const
 
 		SPD_INFO_CLASS(COMMON::d_settings_group_options, fmt::format("\tArgument [{}]: {} = {}", i, key_temp, val_temp));
 	}
+	std::vector<std::string> dumped_settings;
 
-	auto dumped_settings = settings_manager->dump() | std::ranges::views::split('\n') | std::ranges::to<std::vector<std::string>>();
+#if defined(__cpp_lib_ranges_to_container)
+	dumped_settings = settings_manager->dump() | std::ranges::views::split('\n') | std::ranges::to<std::vector<std::string>>();
+#else
+	std::stringstream ss(settings_manager->dump());
+	std::string		  line;
+
+	while (std::getline(ss, line, '\n'))
+	{
+		dumped_settings.push_back(line);
+	}
+#endif
 
 	SPD_INFO_CLASS(COMMON::d_settings_group_options, "===========================================================");
 	SPD_INFO_CLASS(COMMON::d_settings_group_options, "\tSettings");
